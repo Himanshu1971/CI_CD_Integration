@@ -1,10 +1,14 @@
 workflows:
   flutter-build:
-    name: "flutter-build"
+    name: "Flutter build to test Maestro"
     max_build_duration: 30
     instance_type: mac_mini_m2
     environment:
       flutter: stable
     scripts:
-    - name: "say, hello"
-      script: echo "Hello from codemagic"
+      - name: "Install flutter app dependencies"
+        script: flutter pub get
+      - name: "Build flutter apk"
+        script: flutter build apk --debug
+    artifacts:
+      - build/app/outputs/**/*.apk
